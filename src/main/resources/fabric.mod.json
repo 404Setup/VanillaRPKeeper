@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "vrkmod",
+  "version": "${version}",
+  "name": "Vanilla RP Keeper",
+  "description": "Silently moves the Minecraft Vanilla resource pack to the top.",
+  "authors": [
+    "404"
+  ],
+  "logo": "assets/vrkmod/icon.png",
+  "contact": {
+    "issues": "https://github.com/404Setup/VanillaRPKeeper/issues",
+    "sources": "https://github.com/404Setup/VanillaRPKeeper",
+    "homepage": "https://modrinth.com/mod/vanilla-rp-keeper"
+  },
+  "license": "LGPL-3.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "one.pkg.vrkmod.ModMain"
+    ]
+  },
+  "mixins": [
+    "vrkmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "=${minecraft_version}"
+  }
+}

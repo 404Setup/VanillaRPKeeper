@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "one.pkg.vrkmod.mixin",
+  "refmap": "vrkmod.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PackRepositoryMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
