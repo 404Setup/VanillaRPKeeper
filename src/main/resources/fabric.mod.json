@@ -3,7 +3,7 @@
   "id": "vrkmod",
   "version": "${version}",
   "name": "Vanilla RP Keeper",
-  "description": "Silently moves the Minecraft Vanilla resource pack to the top.",
+  "description": "Some fixes to ResourcePack, as well as enhancements.",
   "authors": [
     "404"
   ],
@@ -20,6 +20,7 @@
       "one.pkg.vrkmod.ModMain"
     ]
   },
+  "accessWidener": "vrkmod.accesswidener",
   "mixins": [
     "vrkmod.mixins.json"
   ],

@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.10-SNAPSHOT"
+    id("fabric-loom") version "1.11-SNAPSHOT"
     id("maven-publish")
 }
 
@@ -10,7 +10,12 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-loom.mixin.defaultRefmapName.set("vrkmod.refmap.json")
+loom {
+    accessWidenerPath = file("src/main/resources/vrkmod.accesswidener")
+    mixin {
+        defaultRefmapName = "vrkmod.refmap.json"
+    }
+}
 
 repositories {
     mavenCentral()
