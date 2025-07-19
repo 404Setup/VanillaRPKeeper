@@ -1,0 +1,4 @@
+{
+  "vrkmod.toast.wrong_shaderpack.title": "間違ったShaderPackを読み込んでいる可能性があります",
+  "vrkmod.toast.wrong_shaderpack.description": " はShaderPackではなく、ResourcePackである可能性が高いです。作者の説明をもう一度確認してください。"
+}
