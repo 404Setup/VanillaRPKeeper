@@ -6,7 +6,6 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "one.pkg.vrkmod.ModMixinPlugin",
   "mixins": [
-    "PackRepositoryMixin",
     "zipmixin.FilePackResourcesMixin"
   ],
   "client": [

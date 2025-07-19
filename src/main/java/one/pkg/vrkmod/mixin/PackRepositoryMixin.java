@@ -14,6 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+/**
+ * @deprecated use {@link EntryBaseMixin}.
+ */
 @Mixin(PackRepository.class)
 @Environment(EnvType.CLIENT)
 public abstract class PackRepositoryMixin {
