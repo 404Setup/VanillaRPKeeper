@@ -19,7 +19,7 @@ public class VRKPlatform {
         IS_DARWIN = System.getProperty("os.name", "").toLowerCase().contains("mac");
         IS_FREEBSD = System.getProperty("os.name", "").toLowerCase().contains("freebsd");
 
-        canUseZSTD = (IS_LINUX /*|| IS_WINDOWS*/ || IS_DARWIN || IS_FREEBSD) && (IS_AMD64 || IS_AARCH64);
+        canUseZSTD = (IS_LINUX || IS_WINDOWS || IS_DARWIN || IS_FREEBSD) && (IS_AMD64 || IS_AARCH64);
     }
 
     public static void setCanUseZSTD(boolean canUseZSTD) {
