@@ -5,6 +5,7 @@ plugins {
 
 version = project.property("mod_version") as String
 group = project.property("maven_group") as String
+var zstd = project.property("zstd_version") as String
 
 base {
     archivesName.set(project.property("archives_base_name") as String)
@@ -36,6 +37,14 @@ dependencies {
     mappings(loom.officialMojangMappings())
     //mappings("net.fabricmc:yarn:${project.property("yarn_mappings")}:v2")
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
+
+    include(implementation("com.github.luben:zstd-jni:$zstd:darwin_aarch64")!!)
+    include(implementation("com.github.luben:zstd-jni:$zstd:darwin_x86_64")!!)
+    include(implementation("com.github.luben:zstd-jni:$zstd:linux_amd64")!!)
+    include(implementation("com.github.luben:zstd-jni:$zstd:linux_aarch64")!!)
+    //include(implementation("com.github.luben:zstd-jni:$zstd:win_amd64")!!)
+    //include(implementation("com.github.luben:zstd-jni:$zstd:win_aarch64")!!)
+    include(implementation("com.github.luben:zstd-jni:$zstd:freebsd_amd64")!!)
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
     modImplementation("maven.modrinth:iris:1.8.8+1.21.1-fabric")

@@ -8,7 +8,9 @@ import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.IoSupplier;
+import one.pkg.vrkmod.util.VRKPlatform;
 import one.pkg.vrkmod.util.VRKSharedZipFileAccess;
+import one.pkg.vrkmod.util.VRKZipTarget;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +19,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -26,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.zip.ZipEntry;
 
 @Mixin(FilePackResources.class)
 public abstract class FilePackResourcesMixin extends AbstractPackResources {
@@ -57,6 +61,11 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
         return null;
     }
 
+    @Unique
+    private VRKSharedZipFileAccess getSharedZipFileAccess() {
+        return (VRKSharedZipFileAccess) this.zipFileAccess;
+    }
+
     /**
      * @author 404
      * @reason test
@@ -64,18 +73,27 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
     @Overwrite
     @Nullable
     private IoSupplier<InputStream> getResource(String resourcePath) {
-        @Nullable ZipFile zipfile = ((VRKSharedZipFileAccess) this.zipFileAccess).getVRKZipFile();
+        @Nullable ZipFile zipfile = getSharedZipFileAccess().getVRKZipFile();
         if (zipfile == null) {
             return null;
         } else {
             ZipArchiveEntry zipentry = zipfile.getEntry(this.addPrefix(resourcePath));
-            return zipentry == null ? null : () -> zipfile.getInputStream(zipentry);
+            if (zipentry == null) return null;
+            getZstd(zipentry);
+            return () -> zipfile.getInputStream(zipentry);
         }
+    }
+
+    @Unique
+    private void getZstd(ZipArchiveEntry zipEntry) {
+        if (!VRKPlatform.isCanUseZSTD()) return;
+        if (getSharedZipFileAccess().isZstd() && zipEntry.getMethod() == ZipEntry.DEFLATED)
+            zipEntry.setMethod(VRKZipTarget.ZSTD_METHOD);
     }
 
     @Inject(method = "getNamespaces", at = @At("HEAD"), cancellable = true)
     private void vrkmod$getNamespaces(PackType type, CallbackInfoReturnable<Set<String>> cir) {
-        @Nullable ZipFile zipfile = ((VRKSharedZipFileAccess) this.zipFileAccess).getVRKZipFile();
+        @Nullable ZipFile zipfile = getSharedZipFileAccess().getVRKZipFile();
         if (zipfile == null) {
             cir.setReturnValue(Set.of());
         } else {
@@ -85,13 +103,17 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
 
             while (enumeration.hasMoreElements()) {
                 ZipArchiveEntry zipentry = enumeration.nextElement();
+                getZstd(zipentry);
                 String s1 = zipentry.getName();
                 String s2 = FilePackResources.extractNamespace(s, s1);
                 if (!s2.isEmpty()) {
                     if (ResourceLocation.isValidNamespace(s2)) {
                         set.add(s2);
                     } else {
-                        LOGGER.warn("Non [a-z0-9_.-] character in namespace {} in pack {}, ignoring", s2, this.zipFileAccess.file);
+                        LOGGER.warn("Non [a-z0-9_.-] character in namespace {} in pack {}, ignoring",
+                                s2,
+                                this.zipFileAccess.file
+                        );
                     }
                 }
             }
@@ -102,7 +124,7 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
 
     @Inject(method = "listResources", at = @At("HEAD"), cancellable = true)
     private void vrkmod$listResources(PackType packType, String string, String string2, PackResources.ResourceOutput resourceOutput, CallbackInfo ci) {
-        @Nullable ZipFile zipFile = ((VRKSharedZipFileAccess) this.zipFileAccess).getVRKZipFile();
+        @Nullable ZipFile zipFile = getSharedZipFileAccess().getVRKZipFile();
         if (zipFile != null) {
             Enumeration<ZipArchiveEntry> enumeration = zipFile.getEntries();
             String var10001 = packType.getDirectory();
@@ -112,6 +134,7 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
             while (enumeration.hasMoreElements()) {
                 ZipArchiveEntry zipEntry = enumeration.nextElement();
                 if (!zipEntry.isDirectory()) {
+                    getZstd(zipEntry);
                     String string5 = zipEntry.getName();
                     if (string5.startsWith(string4)) {
                         String string6 = string5.substring(string3.length());

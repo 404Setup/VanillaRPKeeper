@@ -10,10 +10,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class VRKSharedZipFileAccess extends FilePackResources.SharedZipFileAccess {
+    private final boolean zstd;
     private ZipFile vzipFile;
 
     protected VRKSharedZipFileAccess(File file) {
         super(file);
+        this.zstd = VRKZipTarget.hasZstdExtension(file.getName());
     }
 
     public static VRKSharedZipFileAccess access(File file) {
@@ -45,5 +47,10 @@ public class VRKSharedZipFileAccess extends FilePackResources.SharedZipFileAcces
             IOUtils.closeQuietly(this.vzipFile);
             this.vzipFile = null;
         }
+        super.close();
+    }
+
+    public boolean isZstd() {
+        return zstd;
     }
 }
