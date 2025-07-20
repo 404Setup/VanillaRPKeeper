@@ -11,10 +11,10 @@
   "contact": {
     "issues": "https://github.com/404Setup/VanillaRPKeeper/issues",
     "sources": "https://github.com/404Setup/VanillaRPKeeper",
-    "homepage": "https://modrinth.com/mod/vanilla-rp-keeper"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanilla-rp-keeper"
   },
   "license": "LGPL-3.0",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "one.pkg.vrkmod.ModMain"
