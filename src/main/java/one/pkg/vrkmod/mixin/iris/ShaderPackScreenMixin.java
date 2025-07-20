@@ -6,11 +6,15 @@ import net.irisshaders.iris.gui.element.ShaderPackSelectionList;
 import net.irisshaders.iris.gui.screen.ShaderPackScreen;
 import one.pkg.vrkmod.ModMain;
 import one.pkg.vrkmod.util.VRKToask;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.io.File;
+import java.nio.file.Path;
 
 @Mixin(value = ShaderPackScreen.class, remap = false)
 public class ShaderPackScreenMixin {
@@ -18,15 +22,15 @@ public class ShaderPackScreenMixin {
     private void vrkmod$applyChanges(CallbackInfo ci,
                                      @Local ShaderPackSelectionList.ShaderPackEntry entry) {
         Thread.ofVirtual().start(() -> {
-            var path = FabricLoader.getInstance().getGameDir().resolve("shaderpacks").resolve(entry.getPackName());
-            var file = path.toFile();
+            Path path = FabricLoader.getInstance().getGameDir().resolve("shaderpacks").resolve(entry.getPackName());
+            File file = path.toFile();
             if (!file.exists()) return;
             if (file.isDirectory()) {
-                var meta = path.resolve("pack.mcmeta").toFile();
+                File meta = path.resolve("pack.mcmeta").toFile();
                 if (meta.exists()) VRKToask.sendToast(file.getName());
             } else if (file.isFile()) {
-                try (var zip = ZipFile.builder().setFile(file).get()) {
-                    var target = zip.getEntry("pack.mcmeta");
+                try (ZipFile zip = ZipFile.builder().setFile(file).get()) {
+                    ZipArchiveEntry target = zip.getEntry("pack.mcmeta");
                     if (target != null) VRKToask.sendToast(file.getName());
                 } catch (Exception e) {
                     ModMain.logger.error("Failed to open shaderpack {}", file, e);
