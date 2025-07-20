@@ -1,4 +1,4 @@
-package one.pkg.vrkmod.mixin.zipmixin;
+package one.pkg.vrkmod.mixin.zip;
 
 import com.google.common.collect.Sets;
 import net.minecraft.resources.ResourceLocation;

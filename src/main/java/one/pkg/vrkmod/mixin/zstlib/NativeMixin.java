@@ -1,4 +1,4 @@
-package one.pkg.vrkmod.mixin.zstdmixin;
+package one.pkg.vrkmod.mixin.zstlib;
 
 import com.github.luben.zstd.util.Native;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -23,7 +23,7 @@ public class NativeMixin {
     private static String errorMsg;
 
     @Inject(method = "load(Ljava/io/File;)V", at = @At(value = "INVOKE", target = "Ljava/lang/UnsatisfiedLinkError;<init>(Ljava/lang/String;)V", ordinal = 0), cancellable = true)
-    private static void vrkmod$loadWithZstdSupport(File par1, CallbackInfo ci, @Local UnsatisfiedLinkError e) {
+    private static void vrkmod$loadWithZstd(File par1, CallbackInfo ci, @Local UnsatisfiedLinkError e) {
         UnsatisfiedLinkError err = new UnsatisfiedLinkError(e.getMessage() + "\n" + errorMsg);
         err.setStackTrace(e.getStackTrace());
         ModMain.logger.error("Failed to load zstd native library", err);
@@ -32,7 +32,7 @@ public class NativeMixin {
     }
 
     @Inject(method = "load(Ljava/io/File;)V", at = @At(value = "INVOKE", target = "Ljava/lang/UnsatisfiedLinkError;<init>(Ljava/lang/String;)V", ordinal = 1), cancellable = true)
-    private static void vrkmod$loadWithZstdSupport2(File par1, CallbackInfo ci, @Local(ordinal = 1) UnsatisfiedLinkError e, @Local(ordinal = 0) UnsatisfiedLinkError e1) {
+    private static void vrkmod$loadWithZstd2(File par1, CallbackInfo ci, @Local(ordinal = 1) UnsatisfiedLinkError e, @Local(ordinal = 0) UnsatisfiedLinkError e1) {
         UnsatisfiedLinkError err = new UnsatisfiedLinkError(
                 e.getMessage() + "\n" +
                         e1.getMessage() + "\n" +

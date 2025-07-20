@@ -66,6 +66,6 @@ public class VRKZipTarget {
     public static boolean hasZstdExtension(String filename) {
         if (filename == null) return false;
         String lower = filename.toLowerCase();
-        return lower.endsWith(".zst") || lower.endsWith(".zstd");
+        return lower.endsWith(".zst") || lower.endsWith(".zstsupport");
     }
 }

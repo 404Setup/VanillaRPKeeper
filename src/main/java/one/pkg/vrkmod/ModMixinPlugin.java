@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class ModMixinPlugin implements IMixinConfigPlugin {
     private static final String[] zstdClasses = new String[]{
-            "one.pkg.vrkmod.mixin.zipmixin.PackDetectorMixin",
-            "one.pkg.vrkmod.mixin.zipmixin.ZipFileMixin",
-            "one.pkg.vrkmod.mixin.zipmixin.ZipMethodMixin",
-            "one.pkg.vrkmod.mixin.zipmixin.ZipUtilMixin",
+            "one.pkg.vrkmod.mixin.zstsupport.PackDetectorMixin",
+            "one.pkg.vrkmod.mixin.zstsupport.ZipFileMixin",
+            "one.pkg.vrkmod.mixin.zstsupport.ZipMethodMixin",
+            "one.pkg.vrkmod.mixin.zstsupport.ZipUtilMixin",
     };
 
     @Override

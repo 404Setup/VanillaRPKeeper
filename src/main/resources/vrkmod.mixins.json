@@ -6,12 +6,12 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "one.pkg.vrkmod.ModMixinPlugin",
   "mixins": [
-    "zipmixin.FilePackResourcesMixin",
-    "zipmixin.PackDetectorMixin",
-    "zipmixin.ZipFileMixin",
-    "zipmixin.ZipMethodMixin",
-    "zipmixin.ZipUtilMixin",
-    "zstdmixin.NativeMixin"
+    "zip.FilePackResourcesMixin",
+    "zstsupport.PackDetectorMixin",
+    "zstsupport.ZipFileMixin",
+    "zstsupport.ZipMethodMixin",
+    "zstsupport.ZipUtilMixin",
+    "zstlib.NativeMixin"
   ],
   "client": [
     "EntryBaseMixin",
