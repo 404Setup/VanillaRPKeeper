@@ -3,7 +3,7 @@
   "id": "vrkmod",
   "version": "${version}",
   "name": "Vanilla RP Keeper",
-  "description": "ResourcePack related fixes and enhancements.",
+  "description": "Always pinned Vanilla resource pack.",
   "authors": [
     "404"
   ],
