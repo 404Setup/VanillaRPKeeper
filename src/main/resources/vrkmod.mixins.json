@@ -5,11 +5,6 @@
   "refmap": "vrkmod.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "zip.FilePackResourcesMixin",
-    "moreformat.PackDetectorMixin",
-    "moreformat.ZipFileMixin",
-    "moreformat.ZipMethodMixin",
-    "moreformat.ZipUtilMixin"
   ],
   "client": [
     "EntryBaseMixin"
