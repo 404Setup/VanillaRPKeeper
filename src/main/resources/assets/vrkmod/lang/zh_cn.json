@@ -1,4 +1,0 @@
-{
-  "vrkmod.toast.wrong_shaderpack.title": "您可能正在加载一个错误的ShaderPack",
-  "vrkmod.toast.wrong_shaderpack.description": " 很可能是一个ResourcePack，而不是ShaderPack。请再次检查创作者的说明。"
-}

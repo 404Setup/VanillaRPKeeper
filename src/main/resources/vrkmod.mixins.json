@@ -15,7 +15,6 @@
   ],
   "client": [
     "EntryBaseMixin",
-    "iris.ShaderPackScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

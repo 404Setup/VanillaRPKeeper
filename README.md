@@ -3,7 +3,7 @@
 VanillaRPKeeper
 ====
 
-ResourcePack related fixes and enhancements.
+Always pinned Vanilla resource pack.
 
 ## License
 
