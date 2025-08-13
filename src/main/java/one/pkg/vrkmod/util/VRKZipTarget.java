@@ -15,7 +15,7 @@ public class VRKZipTarget {
     public static int isSupported(String filename) {
         if (filename == null) return 0;
         String lower = filename.toLowerCase();
-        if (lower.endsWith(".zst") || lower.endsWith(".zstsupport")) {
+        if (lower.endsWith(".zst") || lower.endsWith(".moreformat")) {
             return 1;
         } else if (lower.endsWith(".br")) {
             return 2;

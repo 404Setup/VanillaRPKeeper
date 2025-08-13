@@ -1,4 +1,4 @@
-package one.pkg.vrkmod.mixin.zstsupport;
+package one.pkg.vrkmod.mixin.moreformat;
 
 import one.pkg.vrkmod.util.VRKZipTarget;
 import org.apache.commons.compress.archivers.zip.ZipMethod;

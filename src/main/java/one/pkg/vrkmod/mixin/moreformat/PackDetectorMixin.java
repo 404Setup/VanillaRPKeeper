@@ -1,4 +1,4 @@
-package one.pkg.vrkmod.mixin.zstsupport;
+package one.pkg.vrkmod.mixin.moreformat;
 
 import net.minecraft.server.packs.repository.PackDetector;
 import one.pkg.vrkmod.util.VRKZipTarget;

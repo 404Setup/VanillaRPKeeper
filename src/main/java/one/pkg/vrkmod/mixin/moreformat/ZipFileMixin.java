@@ -1,4 +1,4 @@
-package one.pkg.vrkmod.mixin.zstsupport;
+package one.pkg.vrkmod.mixin.moreformat;
 
 import com.aayushatharva.brotli4j.decoder.BrotliInputStream;
 import com.github.luben.zstd.ZstdInputStream;

@@ -8,7 +8,6 @@ import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.IoSupplier;
-import one.pkg.vrkmod.util.VRKPlatform;
 import one.pkg.vrkmod.util.VRKSharedZipFileAccess;
 import one.pkg.vrkmod.util.VRKZipTarget;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -86,7 +85,6 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
 
     @Unique
     private void getCompressed(ZipArchiveEntry zipEntry) {
-        if (!VRKPlatform.isCanUseZSTD()) return;
         if (zipEntry.getMethod() == ZipEntry.DEFLATED) {
             if (getSharedZipFileAccess().isZstd()) zipEntry.setMethod(VRKZipTarget.ZSTD_METHOD);
             else if (getSharedZipFileAccess().isBrotli()) zipEntry.setMethod(VRKZipTarget.BROTLI_METHOD);
