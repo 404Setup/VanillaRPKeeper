@@ -11,11 +11,14 @@ import java.io.IOException;
 
 public class VRKSharedZipFileAccess extends FilePackResources.SharedZipFileAccess {
     private final boolean zstd;
+    private final boolean brotli;
     private ZipFile vzipFile;
 
     protected VRKSharedZipFileAccess(File file) {
         super(file);
-        this.zstd = VRKZipTarget.hasZstdExtension(file.getName());
+        int supported = VRKZipTarget.isSupported(file.getName());
+        this.zstd = supported == 1;
+        this.brotli = supported == 2;
     }
 
     public static VRKSharedZipFileAccess access(File file) {
@@ -48,6 +51,10 @@ public class VRKSharedZipFileAccess extends FilePackResources.SharedZipFileAcces
             this.vzipFile = null;
         }
         super.close();
+    }
+
+    public boolean isBrotli() {
+        return brotli;
     }
 
     public boolean isZstd() {

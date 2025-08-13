@@ -13,7 +13,7 @@
     "zstsupport.ZipUtilMixin"
   ],
   "client": [
-    "EntryBaseMixin",
+    "EntryBaseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ZipUtilMixin {
     @Inject(method = "supportsMethodOf", at = @At(value = "HEAD"), cancellable = true)
     private static void vrkmod$supportsMethodOf(ZipArchiveEntry entry, CallbackInfoReturnable<Boolean> cir) {
-        if (entry.getMethod() == VRKZipTarget.ZSTD_METHOD) cir.setReturnValue(true);
+        if (entry.getMethod() == VRKZipTarget.ZSTD_METHOD ||
+                entry.getMethod() == VRKZipTarget.BROTLI_METHOD)
+            cir.setReturnValue(true);
     }
 }

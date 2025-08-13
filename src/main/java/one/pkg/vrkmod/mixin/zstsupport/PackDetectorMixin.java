@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(PackDetector.class)
 public class PackDetectorMixin {
     @Redirect(method = "detectPackResources", at = @At(value = "INVOKE", target = "Ljava/lang/String;endsWith(Ljava/lang/String;)Z"))
-    private boolean vrkmod$endsWithZstd(String string, String suffix) {
-        return VRKZipTarget.hasZstdExtension(string) || string.endsWith(suffix);
+    private boolean vrkmod$endsWith(String string, String suffix) {
+        int supported = VRKZipTarget.isSupported(string);
+        return supported > 0 && supported < 4;
     }
 }

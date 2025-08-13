@@ -79,16 +79,18 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
         } else {
             ZipArchiveEntry zipentry = zipfile.getEntry(this.addPrefix(resourcePath));
             if (zipentry == null) return null;
-            getZstd(zipentry);
+            getCompressed(zipentry);
             return () -> zipfile.getInputStream(zipentry);
         }
     }
 
     @Unique
-    private void getZstd(ZipArchiveEntry zipEntry) {
+    private void getCompressed(ZipArchiveEntry zipEntry) {
         if (!VRKPlatform.isCanUseZSTD()) return;
-        if (getSharedZipFileAccess().isZstd() && zipEntry.getMethod() == ZipEntry.DEFLATED)
-            zipEntry.setMethod(VRKZipTarget.ZSTD_METHOD);
+        if (zipEntry.getMethod() == ZipEntry.DEFLATED) {
+            if (getSharedZipFileAccess().isZstd()) zipEntry.setMethod(VRKZipTarget.ZSTD_METHOD);
+            else if (getSharedZipFileAccess().isBrotli()) zipEntry.setMethod(VRKZipTarget.BROTLI_METHOD);
+        }
     }
 
     @Inject(method = "getNamespaces", at = @At("HEAD"), cancellable = true)
@@ -103,7 +105,7 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
 
             while (enumeration.hasMoreElements()) {
                 ZipArchiveEntry zipentry = enumeration.nextElement();
-                getZstd(zipentry);
+                getCompressed(zipentry);
                 String s1 = zipentry.getName();
                 String s2 = FilePackResources.extractNamespace(s, s1);
                 if (!s2.isEmpty()) {
@@ -134,7 +136,7 @@ public abstract class FilePackResourcesMixin extends AbstractPackResources {
             while (enumeration.hasMoreElements()) {
                 ZipArchiveEntry zipEntry = enumeration.nextElement();
                 if (!zipEntry.isDirectory()) {
-                    getZstd(zipEntry);
+                    getCompressed(zipEntry);
                     String string5 = zipEntry.getName();
                     if (string5.startsWith(string4)) {
                         String string6 = string5.substring(string3.length());
