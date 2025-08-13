@@ -10,8 +10,7 @@
     "zstsupport.PackDetectorMixin",
     "zstsupport.ZipFileMixin",
     "zstsupport.ZipMethodMixin",
-    "zstsupport.ZipUtilMixin",
-    "zstlib.NativeMixin"
+    "zstsupport.ZipUtilMixin"
   ],
   "client": [
     "EntryBaseMixin",
