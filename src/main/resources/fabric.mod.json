@@ -28,8 +28,5 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${version_range}"
-  },
-  "suggests": {
-    "iris": "*"
   }
 }
