@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "one.pkg.vrk.shared.mixin",
+  "refmap": "vanilla_rp_keeper.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "EntryBaseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

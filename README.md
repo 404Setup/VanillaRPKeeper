@@ -1,4 +1,4 @@
-<img src="./src/main/resources/assets/vrkmod/icon.png" alt="Logo" align="right" width="150">
+<img src="./common/src/main/resources/assets/vanilla_rp_keeper/icon.png" alt="Logo" align="right" width="150">
 
 VanillaRPKeeper
 ====
